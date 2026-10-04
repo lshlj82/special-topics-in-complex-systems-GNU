@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Special Topics in Complex Systems · Interactive demos</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧩</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,600;1,400&family=Public+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #eef1f4;
+    --ink: #18233a;
+    --muted: #55607a;
+    --rule: #c9d0db;
+    --node: #2f5bd3;
+    --hub: #d6453d;
+    --edge: #8f9ab0;
+    --spin-up: #18233a;
+    --spin-down: #dfe5ee;
+    --hi: #e0a800;
+    --accent: #b5770f;
+    --serif: "STIX Two Text", "Cambria", "Times New Roman", serif;
+    --sans: "Public Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #141c2b;
+      --ink: #e4e9f2;
+      --muted: #9aa5bb;
+      --rule: #2e3a52;
+      --node: #6f93f2;
+      --hub: #ff6b5e;
+      --edge: #5a6884;
+      --spin-up: #0b111d;
+      --spin-down: #dfe5ee;
+      --hi: #f5d24e;
+      --accent: #e3a43a;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #141c2b;
+    --ink: #e4e9f2;
+    --muted: #9aa5bb;
+    --rule: #2e3a52;
+    --node: #6f93f2;
+    --hub: #ff6b5e;
+    --edge: #5a6884;
+      --spin-up: #0b111d;
+      --spin-down: #dfe5ee;
+      --hi: #f5d24e;
+    --accent: #e3a43a;
+  }
+  *, *::before, *::after { box-sizing: inherit; }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 1.125rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  a:focus-visible, button:focus-visible, input:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+  .wrap { max-width: 68rem; margin: 0 auto; padding: 0 1.5rem; }
+  .ko { color: var(--muted); word-break: keep-all; }
+
+  /* Hero */
+  .hero { padding: 4.5rem 0 3rem; }
+  .hero-text { max-width: 48rem; }
+  .hero h1 {
+    font-weight: 600;
+    font-size: clamp(2.1rem, 5vw, 3.5rem);
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    word-break: keep-all;
+    margin: 0 0 1.25rem;
+  }
+  .hero-text p { margin: 0; max-width: 40rem; color: var(--muted); font-size: 1.2rem; }
+  .hero-text .credit { margin-top: 1.25rem; font-family: var(--sans); font-size: 0.95rem; }
+  .credit span { display: block; }
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    gap: 2rem;
+  }
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+    max-width: 44rem;
+    flex-wrap: wrap;
+    font-family: var(--sans);
+    font-size: 0.9rem;
+  }
+    font: inherit;
+    color: var(--ink);
+    background: transparent;
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    padding: 0.25rem 0.7rem;
+    cursor: pointer;
+  }
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-top: 0.6rem;
+  }
+
+  /* Demo list */
+  .part { padding: 2.25rem 0 1rem; border-top: 1px solid var(--rule); }
+  .part h2 {
+    font-weight: 400;
+    font-style: italic;
+    font-size: 1.5rem;
+    margin: 0 0 0.5rem;
+    color: var(--muted);
+  }
+  .demos { list-style: none; margin: 0; padding: 0; }
+  .demo {
+    display: grid;
+    grid-template-columns: 2.5rem 1fr minmax(14rem, 24rem);
+    gap: 0 1.5rem;
+    padding: 1.4rem 0;
+    align-items: baseline;
+  }
+  .demo + .demo { border-top: 1px dashed var(--rule); }
+  .num { font-size: 1.5rem; color: var(--accent); font-variant-numeric: oldstyle-nums; }
+  .demo h3 { font-size: 1.55rem; font-weight: 600; line-height: 1.2; margin: 0 0 0.35rem; }
+  .demo h3 a { text-decoration: none; }
+  .demo h3 a:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+  h3 .ko { display: block; font-size: 1.05rem; font-weight: 400; margin-top: 0.15rem; }
+  .demo p { margin: 0 0 0.6rem; max-width: 36rem; }
+  .links { font-family: var(--sans); font-size: 0.9rem; display: flex; gap: 1.25rem; flex-wrap: wrap; }
+  .links a { text-underline-offset: 3px; }
+  .links a.primary { font-weight: 600; color: var(--node); }
+  .eq { font-size: 1.15rem; line-height: 1.5; text-align: right; overflow-x: auto; white-space: nowrap; }
+  .eq sup, .eq sub { font-size: 0.68em; line-height: 0; }
+  .eq .bf { font-weight: 600; font-style: normal; }
+  .frac { display: inline-flex; flex-direction: column; vertical-align: middle; text-align: center; font-size: 0.95em; }
+  .frac > span:first-child { border-bottom: 1px solid currentColor; padding: 0 0.2em; }
+  .frac > span:last-child { padding: 0 0.2em; }
+  .big { font-size: 1.3em; }
+  .sqrt { display: inline-flex; align-items: stretch; vertical-align: -0.28em; white-space: nowrap; }
+  .radic { width: 0.62em; height: auto; overflow: visible; fill: none; stroke: currentColor; stroke-width: 1.1; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+  .radicand { border-top: 1.1px solid currentColor; padding: 0.1em 0.12em 0 0.06em; line-height: 1.3; }
+
+
+  .refs ul { margin: 0.5rem 0 1.5rem; padding-left: 1.2rem; max-width: 46rem; }
+  .refs li { margin-bottom: 0.8rem; }
+  .refs a { text-underline-offset: 3px; text-decoration-color: var(--rule); }
+  .refs a:hover { text-decoration-color: currentColor; }
+    max-width: 46rem;
+    margin: 0.5rem 0 2rem;
+    padding: 1.25rem 1.5rem;
+    border-left: 3px solid var(--accent);
+    background: color-mix(in srgb, var(--accent) 7%, transparent);
+    word-break: keep-all;
+  }
+  footer {
+    border-top: 1px solid var(--rule);
+    padding: 2rem 0 3rem;
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+
+  @media (max-width: 52rem) {
+    .hero { padding-top: 3rem; }
+    .demo { grid-template-columns: 2rem 1fr; }
+    .eq { grid-column: 2; text-align: left; margin-top: 0.5rem; }
+  }
+
+  /* RG figure */
+  .rg-figure { margin: 3rem 0 0; }
+  .rg {
+    display: grid;
+    grid-template-columns: 6.5rem repeat(4, minmax(0, 1fr));
+    gap: 0.9rem 1rem;
+    align-items: center;
+  }
+  .rg .colhead { font-family: var(--sans); font-size: 0.85rem; color: var(--muted); text-align: center; line-height: 1.35; }
+  .rg .rowhead { font-size: 1.05rem; line-height: 1.3; }
+  .rg .rowhead small { display: block; font-family: var(--sans); font-size: 0.78rem; color: var(--muted); }
+  .rg canvas {
+    display: block; width: 100%; aspect-ratio: 1;
+    image-rendering: pixelated; image-rendering: crisp-edges;
+    border: 2px solid var(--node); border-radius: 2px;
+  }
+  .rg-caption { margin: 1.5rem 0 0; font-size: 1rem; line-height: 1.55; max-width: 52rem; }
+  .rg-figure figcaption { font-family: var(--sans); font-size: 0.85rem; color: var(--muted); margin-top: 0.6rem; }
+  @media (max-width: 40rem) {
+    .rg { grid-template-columns: 3.6rem repeat(4, minmax(0, 1fr)); gap: 0.5rem 0.45rem; }
+    .rg .rowhead small { display: none; }
+    .rg .colhead { font-size: 0.72rem; }
+    .rg canvas { border-width: 1px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="hero-text">
+      <h1>Special Topics in Complex Systems</h1>
+      <p>Interactive demos for a graduate course in the Department of Physics, Gyeongsang National University. Eight browser simulations follow the course from percolation on trees, lattices and networks to the Ising model and the renormalization group.</p>
+      <p class="credit">Created by Claude Opus 5.5, based on the lecture notes by Prof. Sang Hoon Lee.</p>
+    </div>
+    <figure class="rg-figure">
+      <div class="rg" role="img" aria-label="Block-spin renormalization of 2D Ising configurations below, at and above the critical temperature">
+          <div></div>
+          <div class="colhead">Original<br>128 × 128</div>
+          <div class="colhead">1 block step<br>64 × 64</div>
+          <div class="colhead">2 block steps<br>32 × 32</div>
+          <div class="colhead">3 block steps<br>16 × 16</div>
+          <div class="rowhead"><i>T</i> &lt; <i>T</i><sub>c</sub><small><i>k</i><sub>B</sub><i>T</i>/<i>J</i> = 2.10</small></div>
+          <canvas id="rg-below-0" width="128" height="128" aria-hidden="true"></canvas>
+          <canvas id="rg-below-1" width="64" height="64" aria-hidden="true"></canvas>
+          <canvas id="rg-below-2" width="32" height="32" aria-hidden="true"></canvas>
+          <canvas id="rg-below-3" width="16" height="16" aria-hidden="true"></canvas>
+          <div class="rowhead"><i>T</i> = <i>T</i><sub>c</sub><small><i>k</i><sub>B</sub><i>T</i>/<i>J</i> = 2.269</small></div>
+          <canvas id="rg-crit-0" width="128" height="128" aria-hidden="true"></canvas>
+          <canvas id="rg-crit-1" width="64" height="64" aria-hidden="true"></canvas>
+          <canvas id="rg-crit-2" width="32" height="32" aria-hidden="true"></canvas>
+          <canvas id="rg-crit-3" width="16" height="16" aria-hidden="true"></canvas>
+          <div class="rowhead"><i>T</i> &gt; <i>T</i><sub>c</sub><small><i>k</i><sub>B</sub><i>T</i>/<i>J</i> = 2.50</small></div>
+          <canvas id="rg-above-0" width="128" height="128" aria-hidden="true"></canvas>
+          <canvas id="rg-above-1" width="64" height="64" aria-hidden="true"></canvas>
+          <canvas id="rg-above-2" width="32" height="32" aria-hidden="true"></canvas>
+          <canvas id="rg-above-3" width="16" height="16" aria-hidden="true"></canvas>
+      </div>
+      <p class="rg-caption">Block-spin renormalization of the 2D Ising model. Each row runs a Monte Carlo simulation on a 128 × 128 lattice, and each step to the right replaces every 2 × 2 block by the sign of its majority spin. Below <i>T</i><sub>c</sub> the coarse-grained configurations flow toward a uniform, ordered state; above <i>T</i><sub>c</sub> they flow toward uncorrelated noise. Only at <i>T</i><sub>c</sub>, where the correlation length diverges, do they look statistically the same at every scale.</p>
+      <figcaption>From demo 8, <a href="https://lshlj82.github.io/Ising-model-RG/">The renormalization group for the Ising model</a>.</figcaption>
+    </figure>
+  </header>
+
+  <main>
+    <section class="part" aria-labelledby="part-perc">
+      <h2 id="part-perc">Percolation</h2>
+      <ol class="demos" start="1">
+        <li class="demo">
+          <span class="num">1</span>
+          <div>
+            <h3><a href="https://lshlj82.github.io/percolation-Bethe/">Percolation on the Bethe lattice</a></h3>
+            <p>An exactly solvable case: on a tree with coordination number <i>z</i>, the percolation threshold, the order parameter and the mean cluster size follow from simple self-consistency equations.</p>
+            <div class="links">
+              <a class="primary" href="https://lshlj82.github.io/percolation-Bethe/">Open demo</a>
+              <a href="https://github.com/lshlj82/percolation-Bethe">Source on GitHub</a>
+            </div>
+          </div>
+          <div class="eq" aria-label="p c equals one over z minus one">
+            <i>p</i><sub>c</sub> = <span class="frac"><span>1</span><span><i>z</i> − 1</span></span>
+          </div>
+        </li>
+        <li class="demo">
+          <span class="num">2</span>
+          <div>
+            <h3><a href="https://lshlj82.github.io/percolation-2D/">Percolation on the 2D square lattice</a></h3>
+            <p>Clusters on the square lattice near the threshold, the emergence of a spanning cluster, and critical exponents beyond mean-field theory.</p>
+            <div class="links">
+              <a class="primary" href="https://lshlj82.github.io/percolation-2D/">Open demo</a>
+              <a href="https://github.com/lshlj82/percolation-2D">Source on GitHub</a>
+            </div>
+          </div>
+          <div class="eq" aria-label="P infinity is proportional to p minus p c to the beta, with beta equal to five thirty-sixths">
+            <i>P</i><sub>∞</sub> ∝ (<i>p</i> − <i>p</i><sub>c</sub>)<sup><i>β</i></sup>, &nbsp;<i>β</i> = <span class="frac"><span>5</span><span>36</span></span>
+          </div>
+        </li>
+        <li class="demo">
+          <span class="num">3</span>
+          <div>
+            <h3><a href="https://lshlj82.github.io/percolation-on-networks/">Percolation on networks</a></h3>
+            <p>Percolation on random networks with arbitrary degree distributions, the Molloy–Reed criterion, and the robustness of heterogeneous networks.</p>
+            <div class="links">
+              <a class="primary" href="https://lshlj82.github.io/percolation-on-networks/">Open demo</a>
+              <a href="https://github.com/lshlj82/percolation-on-networks">Source on GitHub</a>
+            </div>
+          </div>
+          <div class="eq" aria-label="phi c equals mean k over mean k squared minus mean k">
+            <i>φ</i><sub>c</sub> = <span class="frac"><span>⟨<i>k</i>⟩</span><span>⟨<i>k</i><sup>2</sup>⟩ − ⟨<i>k</i>⟩</span></span>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <section class="part" aria-labelledby="part-ising">
+      <h2 id="part-ising">The Ising model</h2>
+      <ol class="demos" start="4">
+        <li class="demo">
+          <span class="num">4</span>
+          <div>
+            <h3><a href="https://lshlj82.github.io/Ising-model-preliminary/">The Ising model: introduction</a></h3>
+            <p>The model, its Hamiltonian and partition function, and why a system of interacting binary spins is the standard testing ground for phase transitions.</p>
+            <div class="links">
+              <a class="primary" href="https://lshlj82.github.io/Ising-model-preliminary/">Open demo</a>
+              <a href="https://github.com/lshlj82/Ising-model-preliminary">Source on GitHub</a>
+            </div>
+          </div>
+          <div class="eq" aria-label="H equals minus J sum over neighboring pairs s i s j minus h sum over i of s i">
+            <i>H</i> = −<i>J</i> <span class="big">∑</span><sub>⟨<i>ij</i>⟩</sub> <i>s</i><sub><i>i</i></sub><i>s</i><sub><i>j</i></sub> − <i>h</i> <span class="big">∑</span><sub><i>i</i></sub> <i>s</i><sub><i>i</i></sub>
+          </div>
+        </li>
+        <li class="demo">
+          <span class="num">5</span>
+          <div>
+            <h3><a href="https://lshlj82.github.io/Ising-model-1D/">The 1D Ising model</a></h3>
+            <p>The transfer-matrix solution in one dimension, and why there is no ordered phase at any nonzero temperature.</p>
+            <div class="links">
+              <a class="primary" href="https://lshlj82.github.io/Ising-model-1D/">Open demo</a>
+              <a href="https://github.com/lshlj82/Ising-model-1D">Source on GitHub</a>
+            </div>
+          </div>
+          <div class="eq" aria-label="correlation length xi equals minus one over log tanh beta J">
+            <i>ξ</i> = −<span class="frac"><span>1</span><span>ln tanh(<i>βJ</i>)</span></span>
+          </div>
+        </li>
+        <li class="demo">
+          <span class="num">6</span>
+          <div>
+            <h3><a href="https://lshlj82.github.io/Ising-model-MF-Landau/">Mean-field and Landau theory of the Ising model</a></h3>
+            <p>The self-consistent mean-field equation, the Landau free energy expanded in the order parameter, and the resulting mean-field exponents.</p>
+            <div class="links">
+              <a class="primary" href="https://lshlj82.github.io/Ising-model-MF-Landau/">Open demo</a>
+              <a href="https://github.com/lshlj82/Ising-model-MF-Landau">Source on GitHub</a>
+            </div>
+          </div>
+          <div class="eq" aria-label="m equals tanh of beta times q J m plus h">
+            <i>m</i> = tanh[<i>β</i>(<i>qJm</i> + <i>h</i>)]
+          </div>
+        </li>
+        <li class="demo">
+          <span class="num">7</span>
+          <div>
+            <h3><a href="https://lshlj82.github.io/Ising-model-2D/">The 2D Ising model</a></h3>
+            <p>Monte Carlo simulations on the square lattice, Onsager's exact critical temperature, and finite-size behavior near the transition.</p>
+            <div class="links">
+              <a class="primary" href="https://lshlj82.github.io/Ising-model-2D/">Open demo</a>
+              <a href="https://github.com/lshlj82/Ising-model-2D">Source on GitHub</a>
+            </div>
+          </div>
+          <div class="eq" aria-label="k B T c over J equals 2 over log of one plus root two, about 2.269">
+            <i>k</i><sub>B</sub><i>T</i><sub>c</sub>/<i>J</i> = <span class="frac"><span>2</span><span>ln(1 + <span class="sqrt"><svg class="radic" viewBox="0 0 10 24" preserveAspectRatio="none" aria-hidden="true"><path d="M0.5 14 L2.6 12.6 L5.2 23 L9.6 0.6 L10 0.6"/></svg><span class="radicand">2</span></span>)</span></span> ≈ 2.269
+          </div>
+        </li>
+        <li class="demo">
+          <span class="num">8</span>
+          <div>
+            <h3><a href="https://lshlj82.github.io/Ising-model-RG/">The renormalization group for the Ising model</a></h3>
+            <p>Coarse-graining by block spins, the flow of couplings under repeated transformations, fixed points, and critical exponents from the linearized flow.</p>
+            <div class="links">
+              <a class="primary" href="https://lshlj82.github.io/Ising-model-RG/">Open demo</a>
+              <a href="https://github.com/lshlj82/Ising-model-RG">Source on GitHub</a>
+            </div>
+          </div>
+          <div class="eq" aria-label="nu equals log b over log lambda t">
+            <i>ν</i> = <span class="frac"><span>ln <i>b</i></span><span>ln <i>λ</i><sub><i>t</i></sub></span></span>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <section class="part refs" aria-labelledby="part-refs">
+      <h2 id="part-refs">References</h2>
+      <ul>
+        <li>Kim Christensen and Nicholas R. Moloney, <i>Complexity and Criticality</i> (Imperial College Press, 2005).</li>
+        <li>Prof. Sang Hoon Lee, lecture notes for Special Topics in Complex Systems.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    Created by Claude Opus 5.5, based on the lecture notes by Prof. Sang Hoon Lee. All demos run in the browser with no installation, and the source code for each one is on <a href="https://github.com/lshlj82">GitHub</a>.
+  </footer>
+</div>
+
+<script>
+(function () {
+  const L = 128, LEVELS = 4;
+  const rows = [
+    { key: 'below', T: 2.10, init: 1 },
+    { key: 'crit',  T: 2 / Math.log(1 + Math.SQRT2), init: 0 },
+    { key: 'above', T: 2.50, init: 0 }
+  ];
+  const idx = (x, y) => ((y + L) % L) * L + ((x + L) % L);
+
+  function makeRow(r) {
+    const s = new Int8Array(L * L);
+    for (let i = 0; i < L * L; i++) s[i] = r.init ? r.init : (Math.random() < 0.5 ? 1 : -1);
+    const acc4 = Math.exp(-4 / r.T), acc8 = Math.exp(-8 / r.T);
+    const pAdd = 1 - Math.exp(-2 / r.T);
+    const canv = [];
+    for (let lv = 0; lv < LEVELS; lv++) {
+      const c = document.getElementById('rg-' + r.key + '-' + lv), n = L >> lv;
+      const ctx = c.getContext('2d');
+      canv.push({ ctx, n, img: ctx.createImageData(n, n) });
+    }
+    return { ...r, s, acc4, acc8, pAdd, canv };
+  }
+
+  // Checkerboard Metropolis sweep
+  function sweep(R) {
+    const s = R.s;
+    for (let parity = 0; parity < 2; parity++)
+      for (let y = 0; y < L; y++)
+        for (let x = (y + parity) & 1; x < L; x += 2) {
+          const i = y * L + x;
+          const nb = s[idx(x + 1, y)] + s[idx(x - 1, y)] + s[idx(x, y + 1)] + s[idx(x, y - 1)];
+          const dE = 2 * s[i] * nb;
+          if (dE <= 0 || (dE === 4 ? Math.random() < R.acc4 : Math.random() < R.acc8)) s[i] = -s[i];
+        }
+  }
+  // Wolff cluster update, used only to equilibrate at the start
+  function wolff(R) {
+    const s = R.s, seed = (Math.random() * L * L) | 0, sp = s[seed], stack = [seed];
+    s[seed] = -sp;
+    while (stack.length) {
+      const i = stack.pop(), x = i % L, y = (i / L) | 0;
+      for (const j of [idx(x + 1, y), idx(x - 1, y), idx(x, y + 1), idx(x, y - 1)])
+        if (s[j] === sp && Math.random() < R.pAdd) { s[j] = -sp; stack.push(j); }
+    }
+  }
+
+  // Majority-rule block spins; a tied block keeps its top-left spin
+  function blockSpin(s, n) {
+    const m = n >> 1, out = new Int8Array(m * m);
+    for (let y = 0; y < m; y++) for (let x = 0; x < m; x++) {
+      const a = s[2 * y * n + 2 * x], sum = a + s[2 * y * n + 2 * x + 1] + s[(2 * y + 1) * n + 2 * x] + s[(2 * y + 1) * n + 2 * x + 1];
+      out[y * m + x] = sum > 0 ? 1 : sum < 0 ? -1 : a;
+    }
+    return out;
+  }
+
+  let up, down;
+  function hex(h) { h = h.trim().replace('#', ''); return [0, 2, 4].map(i => parseInt(h.slice(i, i + 2), 16)); }
+  function readColors() {
+    const cs = getComputedStyle(document.documentElement);
+    up = hex(cs.getPropertyValue('--spin-up')); down = hex(cs.getPropertyValue('--spin-down'));
+  }
+  function render(R) {
+    let s = R.s, n = L;
+    for (let lv = 0; lv < LEVELS; lv++) {
+      if (lv > 0) { s = blockSpin(s, n); n >>= 1; }
+      const { ctx, img } = R.canv[lv], d = img.data;
+      for (let i = 0; i < n * n; i++) {
+        const c = s[i] > 0 ? up : down;
+        d[4 * i] = c[0]; d[4 * i + 1] = c[1]; d[4 * i + 2] = c[2]; d[4 * i + 3] = 255;
+      }
+      ctx.putImageData(img, 0, 0);
+    }
+  }
+
+  readColors();
+  const R = rows.map(makeRow);
+  R.forEach(r => { for (let k = 0; k < (r.key === 'below' ? 30 : 400); k++) wolff(r); for (let k = 0; k < 20; k++) sweep(r); render(r); });
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { readColors(); R.forEach(render); });
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  let last = 0;
+  function frame(now) {
+    if (now - last > 70) { last = now; R.forEach(r => { sweep(r); render(r); }); }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
