@@ -25,7 +25,7 @@ Created by Claude Opus 5.5, based on the lecture notes by Prof. Sang Hoon Lee.
 
 The page is a single self-contained `index.html` with no build step. Its header animates block-spin renormalization of the 2D Ising model. Three Metropolis simulations on 128 × 128 lattices run below, at, and above the critical temperature, and each is coarse-grained three times by 2 × 2 majority-rule block spins (ties keep the top-left spin). Below *T*<sub>c</sub> the configurations flow toward order, above *T*<sub>c</sub> toward uncorrelated noise, and at *T*<sub>c</sub> they look statistically the same at every scale.
 
-The page supports light and dark mode and adapts to phone screens. For visitors who have reduced motion turned on, it shows a still frame instead of the animation.
+The page supports light and dark mode (a sun/moon button in the top-right corner switches by hand, and the choice is remembered across pages) and adapts to phone screens. For visitors who have reduced motion turned on, it shows a still frame instead of the animation.
 
 ## Running locally
 
