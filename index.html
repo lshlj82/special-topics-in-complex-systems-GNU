@@ -73,6 +73,15 @@
   }
   .wrap { max-width: 68rem; margin: 0 auto; padding: 0 1.5rem; }
   .ko { color: var(--muted); word-break: keep-all; }
+  .prereq {
+    margin: 0.4rem 0 0.6rem;
+    padding: 0.6rem 1rem;
+    border-left: 2px solid var(--accent);
+    max-width: 44rem;
+    font-size: 1rem;
+  }
+  .prereq p { margin: 0; }
+  .prereq .lbl { font-family: var(--sans); font-size: 0.85rem; font-weight: 600; color: var(--muted); display: block; margin-bottom: 0.15rem; }
 
   /* Hero */
   .hero { padding: 4.5rem 0 3rem; }
@@ -304,6 +313,9 @@ button.theme-btn svg{width:20px; height:20px; fill:none; stroke:currentColor; st
 
     <section class="part" aria-labelledby="part-ising">
       <h2 id="part-ising">The Ising model</h2>
+      <aside class="prereq" aria-label="Undergraduate background">
+        <p><span class="lbl">Undergraduate background</span>New to the Ising model? Start with <a href="https://lshlj82.github.io/Ising-model-basics/">Ising model</a> (<a href="https://github.com/lshlj82/Ising-model-basics">source</a>), demo 9 of the undergraduate course <a href="https://lshlj82.github.io/statphys2-GNU/">Statistical Physics 2</a>. It introduces the model, the exact solution in one dimension, the mean-field approximation, Metropolis Monte Carlo, and a first look at block spins, following Section 8.2 of Schroeder's <i>An Introduction to Thermal Physics</i>.</p>
+      </aside>
       <ol class="demos" start="4">
         <li class="demo">
           <span class="num">4</span>
@@ -383,6 +395,7 @@ button.theme-btn svg{width:20px; height:20px; fill:none; stroke:currentColor; st
       <ul>
         <li>Kim Christensen and Nicholas R. Moloney, <i>Complexity and Criticality</i> (Imperial College Press, 2005).</li>
         <li>Prof. Sang Hoon Lee, lecture notes for Special Topics in Complex Systems.</li>
+        <li>Undergraduate background for the Ising model: <a href="https://lshlj82.github.io/statphys2-GNU/">Statistical Physics 2</a> (demo 9, <a href="https://lshlj82.github.io/Ising-model-basics/">Ising model</a>), following Daniel V. Schroeder, <i>An Introduction to Thermal Physics</i> (Oxford University Press, 2021; originally Addison Wesley Longman, 2000).</li>
       </ul>
     </section>
   </main>

@@ -21,6 +21,8 @@ Created by Claude Opus 5.5, based on the lecture notes by Prof. Sang Hoon Lee.
 | 7 | The 2D Ising model | [demo](https://lshlj82.github.io/Ising-model-2D/) · [source](https://github.com/lshlj82/Ising-model-2D) |
 | 8 | The renormalization group for the Ising model | [demo](https://lshlj82.github.io/Ising-model-RG/) · [source](https://github.com/lshlj82/Ising-model-RG) |
 
+For undergraduate background on the Ising model (demos 4–8), see demo 9 of [Statistical Physics 2](https://github.com/lshlj82/statphys2-GNU): [Ising model](https://lshlj82.github.io/Ising-model-basics/) · [source](https://github.com/lshlj82/Ising-model-basics). The landing page shows this as a note at the top of the Ising-model section.
+
 ## About the page
 
 The page is a single self-contained `index.html` with no build step. Its header animates block-spin renormalization of the 2D Ising model. Three Metropolis simulations on 128 × 128 lattices run below, at, and above the critical temperature, and each is coarse-grained three times by 2 × 2 majority-rule block spins (ties keep the top-left spin). Below *T*<sub>c</sub> the configurations flow toward order, above *T*<sub>c</sub> toward uncorrelated noise, and at *T*<sub>c</sub> they look statistically the same at every scale.
@@ -41,3 +43,4 @@ Open `index.html` in any modern browser. Fonts load from Google Fonts when onlin
 
 - Kim Christensen and Nicholas R. Moloney, *Complexity and Criticality* (Imperial College Press, 2005).
 - Prof. Sang Hoon Lee, lecture notes for Special Topics in Complex Systems.
+- Undergraduate background: [Statistical Physics 2](https://lshlj82.github.io/statphys2-GNU/) (demo 9, [Ising model](https://lshlj82.github.io/Ising-model-basics/)), following Daniel V. Schroeder, *An Introduction to Thermal Physics* (Oxford University Press, 2021; originally Addison Wesley Longman, 2000).
