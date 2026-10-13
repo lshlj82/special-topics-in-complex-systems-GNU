@@ -8,6 +8,8 @@ Landing page for the interactive web demos that accompany *Special Topics in Com
 
 Created by Claude Opus 5.5, based on the lecture notes by Prof. Sang Hoon Lee.
 
+**Related graduate course:** [Phase Transitions and Critical Phenomena](https://github.com/lshlj82/phase-transition-and-critical-phenomena-GNU) ([live page](https://lshlj82.github.io/phase-transition-and-critical-phenomena-GNU/)), following Goldenfeld, develops the general theory behind the critical behavior in these demos: the thermodynamic limit, symmetry breaking, exact solutions, mean-field and Landau theory, and scaling.
+
 ## Demos
 
 | # | Demo | Links |
@@ -43,4 +45,5 @@ Open `index.html` in any modern browser. Fonts load from Google Fonts when onlin
 
 - Kim Christensen and Nicholas R. Moloney, *Complexity and Criticality* (Imperial College Press, 2005).
 - Prof. Sang Hoon Lee, lecture notes for Special Topics in Complex Systems.
+- Related graduate course: [Phase Transitions and Critical Phenomena](https://lshlj82.github.io/phase-transition-and-critical-phenomena-GNU/), following N. Goldenfeld, *Lectures on Phase Transitions and the Renormalization Group* (Addison-Wesley, 1992).
 - Undergraduate background: [Statistical Physics 2](https://lshlj82.github.io/statphys2-GNU/) (demo 9, [Ising model](https://lshlj82.github.io/Ising-model-basics/)), following Daniel V. Schroeder, *An Introduction to Thermal Physics* (Oxford University Press, 2021; originally Addison Wesley Longman, 2000).
